@@ -22,7 +22,7 @@ Serveur Rest permettant d'upload et dowload des fichiers markdown
 ```js
 {"trainingName": "nom de la formation", "resume": "description de la formation"}
 ```
-[![img postman](https://nsa39.casimages.com/img/2019/01/09/190109021746823043.png)](https://nsa39.casimages.com/img/2019/01/09/190109021746823043.png/)
+![img postman](https://nsa39.casimages.com/img/2019/01/09/190109021746823043.png)
     
 2. Téléchargement d'une formation en fichier markdown
    * Appel GET http://localhost:8090/trainings/{id} id correspond à l'identifiant technique de la formation
