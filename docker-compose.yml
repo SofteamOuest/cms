@@ -1,0 +1,35 @@
+version: '3'
+
+services:
+  db-mysql:
+    image: mysql:latest
+    environment:
+    - MYSQL_ROOT_PASSWORD=p4SSW0rd
+    - MYSQL_DATABASE=demo
+    - MYSQL_USER=dbuser
+    - MYSQL_PASSWORD=dbp4ss
+    volumes:
+    - ./data/db:/var/lib/mysql
+    healthcheck:
+      test: mysql -h db-mysql -u dbuser --password=dbp4ss -e "select 1" || exit 1
+      timeout: 2s
+      interval: 2s
+      retries: 15
+    ports:
+    - 3306:3306
+  spring-boot-jpa-docker-webapp:
+    image: softeam/cmsprd
+    build:
+      context: ./
+      dockerfile: springapp.dockerfile
+    depends_on:
+       - db-mysql
+    ports:
+    - 8090:8090
+    - 8000:8000
+    environment:
+    - DATABASE_HOST=db-mysql
+    - DATABASE_USER=dbuser
+    - DATABASE_PASSWORD=dbp4ss
+    - DATABASE_NAME=demo
+    - DATABASE_PORT=3306

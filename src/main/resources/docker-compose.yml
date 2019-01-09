@@ -1,0 +1,25 @@
+version: '2.1'
+
+services:
+  db-mysql:
+    image: mysql:latest
+    environment:
+    - MYSQL_ROOT_PASSWORD=p4SSW0rd
+    - MYSQL_DATABASE=demo
+    - MYSQL_USER=dbuser
+    - MYSQL_PASSWORD=dbp4ss
+    volumes:
+    - ./data/db:/var/lib/mysql
+  spring-boot-jpa-docker-webapp:
+    image: softeam/cmsprd
+    depends_on:
+    - db-mysql
+    ports:
+    - 8090:8090
+    - 8000:8000
+    environment:
+    - DATABASE_HOST=db-mysql
+    - DATABASE_USER=dbuser
+    - DATABASE_PASSWORD=dbp4ss
+    - DATABASE_NAME=demo
+    - DATABASE_PORT=3306
